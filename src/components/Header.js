@@ -5,11 +5,11 @@ import styled from "styled-components";
 import Logo from "./Logo";
 
 export default function Header() {
-    const {setUserToken} = useContext(UserContext);
+    const {setUserContextInfo} = useContext(UserContext);
     const navigate = useNavigate();
     function logout(){
-        localStorage.removeItem('smartParkingUserToken');
-        setUserToken("");
+        localStorage.removeItem('smartParkingUserInfo');
+        setUserContextInfo("");
         navigate("/");
     }
     return (

@@ -7,20 +7,20 @@ import GlobalStyle from './styles/GlobalStyle';
 import UserContext from "./contexts/UserContext"
 
 function App() {
-    const [userToken, setUserToken] = useState(
-        JSON.parse(localStorage.getItem('smartParkingUserToken'))!==null?
-            JSON.parse(localStorage.getItem('smartParkingUserToken')):
+    const [userContextInfo, setUserContextInfo] = useState(
+        JSON.parse(localStorage.getItem('smartParkingUserInfo'))!==null?
+            JSON.parse(localStorage.getItem('smartParkingUserInfo')):
             ""
     );
-
+    console.log("infouser: ",userContextInfo)
   return (
-    <UserContext.Provider value={{userToken, setUserToken}}>
+    <UserContext.Provider value={{userContextInfo, setUserContextInfo}}>
         <GlobalStyle />
         <BrowserRouter>
             <Routes>
                 <Route path="/cadastro" element={<SignUpPage />} />
-                <Route path="/" element={userToken !== "" ? <Navigate to="/estacionamento" /> : <LoginPage />} />
-                <Route path="/estacionamento" element={userToken === "" ? <Navigate to="/" /> : <ParkingPage />} />
+                <Route path="/" element={userContextInfo.token ? <Navigate to="/estacionamento" /> : <LoginPage />} />
+                <Route path="/estacionamento" element={!userContextInfo.token  ? <Navigate to="/" /> : <ParkingPage />} />
             </Routes>
         </BrowserRouter>
     </UserContext.Provider>

@@ -6,12 +6,13 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function UserInfo(){
     const [userInfo, setUserInfo]= useState({})
-    const {userToken} = useContext(UserContext);
+    const {userContextInfo} = useContext(UserContext);
 
     useEffect(()=>{
+        console.log(userContextInfo)
         const config = {
             headers:{
-                Authorization:`Bearer ${userToken}`
+                Authorization:`Bearer ${userContextInfo.token}`
         }}
         axios.get(`${process.env.REACT_APP_API_URL}/userInfo`,config).then((res)=>{
             setUserInfo(res.data)
@@ -23,7 +24,7 @@ export default function UserInfo(){
     function reloadUserInfo(){
         const config = {
             headers:{
-                Authorization:`Bearer ${userToken}`
+                Authorization:`Bearer ${userContextInfo.token}`
         }}
         axios.get(`${process.env.REACT_APP_API_URL}/userInfo`,config).then((res)=>{
             setUserInfo(res.data)
@@ -96,7 +97,8 @@ const Container = styled.section`
         width:150px;
         height: 30px;
         border-radius: 5px;
-        background-color: #0CB669;
+        background-color: #1BCF6C;
+        cursor: pointer;
     }
 `;
 

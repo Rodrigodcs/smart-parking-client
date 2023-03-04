@@ -13,6 +13,7 @@ export default function Parking(){
 }
 
 const Container = styled.div`
+    cursor: default;
     width: 100%;
     height: 100vh;
     padding-top: 150px;

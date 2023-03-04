@@ -1,19 +1,49 @@
 import styled from "styled-components";
 import Spot from "./Spot";
+import axios from "axios";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 export default function ParkingSpots(){
+    const [spots,setSpots] = useState([])
+    const {userContextInfo} = useContext(UserContext);
+    useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_API_URL}/parkingSpots`).then((res)=>{
+            console.log(res.data)
+            setSpots(res.data)
+        }).catch((err) => {
+            console.log(err)
+        });
+    },[])
 
     function reloadSpots(){
-        console.log("carregando")
+        axios.get(`${process.env.REACT_APP_API_URL}/parkingSpots`).then((res)=>{
+            console.log(res.data)
+            setSpots(res.data)
+        }).catch((err) => {
+            console.log(err)
+        });
     }
+
+    function handleSpotClick(spotId){
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userContextInfo.token}`
+        }}
+        axios.post(`${process.env.REACT_APP_API_URL}/user/reservation/${spotId}`, {}, config).then((res)=>{
+            console.log(res.data)
+            reloadSpots()
+        }).catch((err) => {
+            console.log(err)
+        }); 
+        
+    }
+    
     return(
         <Container>
             <p>Vagas de estacionamento</p>
             <div>
-                <Spot name="1" ocupied={true} reserved={false}/>
-                <Spot name="2" ocupied={false} reserved={false}/>
-                <Spot name="3" ocupied={false} reserved={true}/>
-                <Spot name="4" ocupied={true} reserved={false}/>
+                {spots.map((spot)=><Spot key={spot.id} id={spot.id} handleSpotClick={handleSpotClick} number={spot.number} ocupied={spot.ocupied} reserved={spot.reserved}/>)}
             </div>
             <div className="captions">
                 <div>
@@ -53,7 +83,8 @@ const Container = styled.section`
         width:150px;
         height: 40px;
         border-radius: 5px;
-        background-color: #0CB669;
+        background-color: #1BCF6C;
+        cursor: pointer;
     }
     .captions{
         span{

@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { FaCar } from 'react-icons/fa';
 
-export default function Spot({name,ocupied,reserved}){
+export default function Spot({id,number,ocupied,reserved,handleSpotClick}){
 
     return(
-        <Container ocupied={ocupied} reserved={reserved}>
-            <p>{name}</p>
+        <Container onClick={()=>handleSpotClick(id)} ocupied={ocupied} reserved={reserved}>
+            <p>{number}</p>
             <div>
                 {ocupied?
-                    <FaCar className="icon"/>:""
+                    <FaCar className="icon"/>:
+                        ""
                 }
             </div>
         </Container>
@@ -24,6 +25,14 @@ const Container = styled.section`
     flex-direction: column;
     align-items: center;
     padding: 5px;
+    cursor: pointer;
+    button{
+        width:100%;
+        height: 100%;
+        border-radius: 5px;
+        background-color: #0CB669;
+        cursor: pointer;
+    }
     p{
         font-size: 18px;
     }
