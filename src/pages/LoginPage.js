@@ -88,9 +88,10 @@ const ScreenContainer = styled.div`
         margin-left: 50px;
     }
     h1{
-        margin-top: -25px;
+        margin-top: -20px;
         color:#0cb669;
         font-size: 50px;
+        cursor: default;
     }
     a{
         color:grey;
@@ -140,6 +141,7 @@ const FormLogin = styled.form`
         display:flex;
         justify-content:center;
         align-items:center;
+        cursor: pointer;
         &:disabled{
             opacity: 0.7;
         }

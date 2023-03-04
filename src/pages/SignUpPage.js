@@ -41,6 +41,7 @@ export default function SignUpPage(){
     return(
         <ScreenContainer>
             <img src={logo} alt="logo"/>
+            <h1>Smart Parking</h1>
             <FormSignUp onSubmit={signUp}>
                 <input name="name" type="text" placeholder="nome" required onChange={handleForm} value={form.name} disabled={isDisabled}/>
                 <input name="email" type="email" placeholder="email" required onChange={handleForm} value={form.email} disabled={isDisabled}/>
@@ -93,9 +94,10 @@ const ScreenContainer = styled.div`
         margin-left: 50px;
     }
     h1{
-        margin-top: -25px;
+        margin-top: -20px;
         color:#0cb669;
         font-size: 50px;
+        cursor: default;
     }
     a{
         color:grey;
@@ -132,6 +134,7 @@ input{
     }
 }
 button{
+    cursor: pointer;
     max-width: 303px;
     width: 100%;
     height: 45px;

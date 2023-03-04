@@ -1,7 +1,12 @@
+import Header from "../components/Header";
+import Parking from "../components/Parking";
 
 export default function ParkingPage(){
 
     return(
-        <p>ESTACIONAMENTO</p>
+        <>
+            <Header/>
+            <Parking/>
+        </>
     );
 }

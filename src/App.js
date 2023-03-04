@@ -20,7 +20,7 @@ function App() {
             <Routes>
                 <Route path="/cadastro" element={<SignUpPage />} />
                 <Route path="/" element={userToken !== "" ? <Navigate to="/estacionamento" /> : <LoginPage />} />
-                <Route path="/estacionamento" element={<ParkingPage />} />
+                <Route path="/estacionamento" element={userToken === "" ? <Navigate to="/" /> : <ParkingPage />} />
             </Routes>
         </BrowserRouter>
     </UserContext.Provider>
