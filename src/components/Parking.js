@@ -20,8 +20,10 @@ const Container = styled.div`
     display: flex;
     padding-left: 20px;
     padding-right: 20px;
-    gap:10px;
+    gap:20px;
     @media (max-width: 600px) {
         flex-direction: column;
+        align-items: center;
+        padding-top: 120px;
     }
 `;

@@ -4,7 +4,6 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { ThreeDots } from "react-loader-spinner";
 
-
 export default function UserInfo(){
     const [userInfo, setUserInfo]= useState({})
     const {userToken} = useContext(UserContext);
@@ -12,7 +11,7 @@ export default function UserInfo(){
     useEffect(()=>{
         const config = {
             headers:{
-                Authorization:`Bearer ${userToken.token}`
+                Authorization:`Bearer ${userToken}`
         }}
         axios.get(`${process.env.REACT_APP_API_URL}/userInfo`,config).then((res)=>{
             setUserInfo(res.data)
@@ -24,7 +23,7 @@ export default function UserInfo(){
     function reloadUserInfo(){
         const config = {
             headers:{
-                Authorization:`Bearer ${userToken.token}`
+                Authorization:`Bearer ${userToken}`
         }}
         axios.get(`${process.env.REACT_APP_API_URL}/userInfo`,config).then((res)=>{
             setUserInfo(res.data)
@@ -66,7 +65,7 @@ export default function UserInfo(){
 const Container = styled.section`
     width: fit-content;
     height: fit-content;
-    background-color: #8CEABC;
+    background-color: #b7b7bc;
     display: flex;
     align-items: center;
     border-radius: 10px;
@@ -89,11 +88,11 @@ const Container = styled.section`
         color:red;
         font-size: 18px;
     }
-    @media (max-width: 600px) {
-        width: 100%;
-    }
+    
     .button{
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         width:150px;
         height: 30px;
         border-radius: 5px;

@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext";
 import logo from "../assets/logo.png";
 
 export default function LoginPage(){
-    const {setUserToken} = useContext(UserContext);
+    const {userToken,setUserToken} = useContext(UserContext);
     const navigate = useNavigate();
     const [isDisabled, setIsDisabled] = useState(false);
     const [form, setForm] = useState({
@@ -27,7 +27,8 @@ export default function LoginPage(){
         const body={...form};
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/signIn`, body);
         promise.then((res)=>{
-            localStorage.setItem('smartParkingUserToken', JSON.stringify(res.data));
+            console.log(res.data)
+            localStorage.setItem('smartParkingUserToken', JSON.stringify(res.data.token));
             setUserToken(res.data.token);
             navigate("/estacionamento");
         });
