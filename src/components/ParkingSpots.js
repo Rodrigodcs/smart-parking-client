@@ -9,6 +9,7 @@ export default function ParkingSpots(){
     const {userContextInfo} = useContext(UserContext);
     useEffect(()=>{
         axios.get(`${process.env.REACT_APP_API_URL}/parkingSpots`).then((res)=>{
+            console.log(res.data)
             setSpots(res.data)
         }).catch((err) => {
             console.log(err)
@@ -40,9 +41,18 @@ export default function ParkingSpots(){
     
     return(
         <Container>
-            <p>Vagas de estacionamento</p>
+            <p>Faça sua Reserva</p>
             <div>
-                {spots.map((spot)=><Spot key={spot.id} id={spot.id} handleSpotClick={handleSpotClick} number={spot.number} ocupied={spot.ocupied} reserved={spot.reserved}/>)}
+                {spots.map((spot)=><Spot 
+                    key={spot.id}
+                    userId={userContextInfo.userId}
+                    id={spot.id}
+                    handleSpotClick={handleSpotClick}
+                    number={spot.number}
+                    ocupied={spot.ocupied}
+                    reserved={spot.reserved}
+                    reservedUserId={spot.userId}
+                />)}
             </div>
             <div className="captions">
                 <div>
@@ -53,6 +63,9 @@ export default function ParkingSpots(){
                 </div>
                 <div>
                     <div className="caption reserved-caption"></div><span>Reservado</span>  
+                </div>
+                <div>
+                    <div className="caption my-reserved-caption"></div><span>Minha reserva</span>  
                 </div>
             </div>
             <button className="button" onClick={()=>reloadSpots()}>Buscar vagas de estacionamento</button>
@@ -103,5 +116,8 @@ const Container = styled.section`
     }
     .reserved-caption{
         background-color: #FEE191;
+    }
+    .my-reserved-caption{
+        background-color: #64A1F4;
     }
 `;
