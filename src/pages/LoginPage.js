@@ -26,12 +26,11 @@ export default function LoginPage(){
         setIsDisabled(true);
         const body={...form};
         axios.post(`${process.env.REACT_APP_API_URL}/signIn`, body).then((res)=>{
-            console.log(res.data)
             localStorage.setItem('smartParkingUserInfo', JSON.stringify(res.data));
             setUserContextInfo(res.data);
             navigate("/estacionamento");
         }).catch((err) => {
-            alert(err.message);
+            console.log(err)
             setIsDisabled(false);
         }); 
     }

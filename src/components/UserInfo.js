@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
@@ -6,10 +7,10 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function UserInfo(){
     const [userInfo, setUserInfo]= useState({})
-    const {userContextInfo} = useContext(UserContext);
+    const {userContextInfo,setUserContextInfo} = useContext(UserContext);
+    const navigate = useNavigate();
 
     useEffect(()=>{
-        console.log(userContextInfo)
         const config = {
             headers:{
                 Authorization:`Bearer ${userContextInfo.token}`
@@ -17,6 +18,11 @@ export default function UserInfo(){
         axios.get(`${process.env.REACT_APP_API_URL}/userInfo`,config).then((res)=>{
             setUserInfo(res.data)
         }).catch((err) => {
+            if(err.response.status===401) {
+                localStorage.removeItem('smartParkingUserInfo');
+                setUserContextInfo("");
+                navigate("/");
+            }
             console.log(err)
         }); 
     },[])

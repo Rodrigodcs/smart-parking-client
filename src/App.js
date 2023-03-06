@@ -12,7 +12,7 @@ function App() {
             JSON.parse(localStorage.getItem('smartParkingUserInfo')):
             ""
     );
-    console.log("infouser: ",userContextInfo)
+    
   return (
     <UserContext.Provider value={{userContextInfo, setUserContextInfo}}>
         <GlobalStyle />

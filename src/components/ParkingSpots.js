@@ -9,7 +9,6 @@ export default function ParkingSpots(){
     const {userContextInfo} = useContext(UserContext);
     useEffect(()=>{
         axios.get(`${process.env.REACT_APP_API_URL}/parkingSpots`).then((res)=>{
-            console.log(res.data)
             setSpots(res.data)
         }).catch((err) => {
             console.log(err)
@@ -18,7 +17,6 @@ export default function ParkingSpots(){
 
     function reloadSpots(){
         axios.get(`${process.env.REACT_APP_API_URL}/parkingSpots`).then((res)=>{
-            console.log(res.data)
             setSpots(res.data)
         }).catch((err) => {
             console.log(err)
@@ -26,6 +24,7 @@ export default function ParkingSpots(){
     }
 
     function handleSpotClick(spotId){
+        console.log(spotId)
         const config = {
             headers:{
                 Authorization:`Bearer ${userContextInfo.token}`
