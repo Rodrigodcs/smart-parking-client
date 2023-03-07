@@ -24,6 +24,19 @@ export default function ParkingSpots(){
         });
     }
 
+    function cancelReservation(){
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userContextInfo.token}`
+        }}
+        axios.post(`${process.env.REACT_APP_API_URL}/user/cancelReservation`,{},config).then((res)=>{
+            console.log(res.data)
+            reloadSpots()
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
+
     function handleSpotClick(spotId){
         console.log(spotId)
         const config = {
@@ -68,6 +81,7 @@ export default function ParkingSpots(){
                     <div className="caption my-reserved-caption"></div><span>Minha reserva</span>  
                 </div>
             </div>
+            <button className="button" onClick={()=>cancelReservation()}>Cancelar reserva</button>
             <button className="button" onClick={()=>reloadSpots()}>Buscar vagas de estacionamento</button>
         </Container>
     );
