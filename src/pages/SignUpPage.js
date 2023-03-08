@@ -33,7 +33,7 @@ export default function SignUpPage(){
             navigate("/");
         });
         promise.catch((err) => {
-            alert(err.message);
+            console.log(err)
             setIsDisabled(false);
         }); 
     }
