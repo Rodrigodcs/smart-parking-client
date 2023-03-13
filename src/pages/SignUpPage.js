@@ -4,6 +4,8 @@ import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUpPage(){
     const navigate = useNavigate();
@@ -33,13 +35,26 @@ export default function SignUpPage(){
             navigate("/");
         });
         promise.catch((err) => {
-            console.log(err)
+            if(err.response) toast.error(err.response.data);
+            else toast.error(err.message)
             setIsDisabled(false);
         }); 
     }
 
     return(
         <ScreenContainer>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <img src={logo} alt="logo"/>
             <h1>Smart Parking</h1>
             <FormSignUp onSubmit={signUp}>

@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import logo from "../assets/logo.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginPage(){
     const {setUserContextInfo} = useContext(UserContext);
@@ -30,12 +32,25 @@ export default function LoginPage(){
             setUserContextInfo(res.data);
             navigate("/estacionamento");
         }).catch((err) => {
-            console.log(err)
+            if(err.response) toast.error(err.response.data);
+            else toast.error(err.message)
             setIsDisabled(false);
         }); 
     }
     return (
         <ScreenContainer>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <img src={logo} alt="logo"/>
             <h1>Smart Parking</h1>
             <FormLogin onSubmit={login}>
@@ -43,16 +58,19 @@ export default function LoginPage(){
                 <input name="password" type="password" placeholder="senha" required onChange={handleForm} value={form.password} disabled={isDisabled}/>
                 <button type="submit" disabled={isDisabled}>
                 {isDisabled? 
-                <ThreeDots
-                height="40" 
-                width="40" 
-                radius="9"
-                color="#FFFFFF" 
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
-                wrapperClassName=""
-                visible={true}
-                 /> : "Entrar"}
+                    <ThreeDots
+                    height="40" 
+                    width="40" 
+                    radius="9"
+                    color="#FFFFFF" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                    /> 
+                    : 
+                    "Entrar"
+                }
                 </button>
             </FormLogin>
             <Link to="/cadastro">

@@ -1,13 +1,30 @@
 import styled from "styled-components";
 import ParkingSpots from "./ParkingSpots";
 import UserInfo from "./UserInfo";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Parking(){
+    function showToast(message,type){
+        type==="error"?toast.error(message):toast(message);
+    }
 
     return(
         <Container>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <UserInfo/>
-            <ParkingSpots/>
+            <ParkingSpots showToast={showToast}/>
         </Container>
     );
 }

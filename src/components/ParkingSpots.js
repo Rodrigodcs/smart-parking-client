@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
-export default function ParkingSpots(){
+export default function ParkingSpots({showToast}){
     const [spots,setSpots] = useState([])
     const {userContextInfo} = useContext(UserContext);
     useEffect(()=>{
@@ -12,6 +12,8 @@ export default function ParkingSpots(){
             console.log(res.data)
             setSpots(res.data)
         }).catch((err) => {
+            if(err.response) showToast(err.response.data,"error");
+            else showToast(err.message)
             console.log(err)
         });
     },[])
@@ -33,6 +35,8 @@ export default function ParkingSpots(){
             console.log(res.data)
             reloadSpots()
         }).catch((err) => {
+            if(err.response) showToast(err.response.data,"error");
+            else showToast(err.message)
             console.log(err)
         });
     }
@@ -47,6 +51,8 @@ export default function ParkingSpots(){
             console.log(res.data)
             reloadSpots()
         }).catch((err) => {
+            if(err.response) showToast(err.response.data,"error");
+            else showToast(err.message)
             console.log(err)
         }); 
         
